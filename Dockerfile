@@ -1,11 +1,15 @@
 # Use an official Node.js runtime as the base image
-FROM node:21
+FROM node:latest
 
 # Set the working directory in the container to /app
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
 COPY package.json ./
+
+RUN chown -R $(whoami) /usr/local/lib/node_modules
+RUN chown -R $(whoami) /usr/local/bin
+RUN chown -R $(whoami) ~/.npm
 
 # Install the application dependencies
 RUN npm install
